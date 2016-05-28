@@ -23,7 +23,7 @@ func (nqc *CancelNewQuestionCommand) Execute(m *tgbotapi.Message, c *tgbot.Clien
 	if m.Text == nqc.GetCommand() {
 		c.SendTextMessage("Ok :(")
 		c.SetState(data.ClientIdle)
-		c.SetData("question", nil)
+		SetUserQuestionInfo(c, nil)
 		return true
 	}
 	return false

@@ -1,4 +1,4 @@
-package questions
+package billet
 
 import (
 	"gopkg.in/telegram-bot-api.v4"
@@ -9,26 +9,26 @@ import (
 	"github.com/saturn4er/go-cheat-telegram-bot/src/lib"
 )
 
-type QuestionsListCommand struct {
+type ListCommand struct {
 	tgbot.Command
 }
 
-func (qlc *QuestionsListCommand) Available(c  *tgbot.Client) bool {
+func (qlc *ListCommand) Available(c  *tgbot.Client) bool {
 	return c.GetState() == data.ClientIdle
 }
-func (hc *QuestionsListCommand) ExecuteForce(c *tgbot.Client) {
-	questions, err := lib.GetQuestionsList()
+func (hc *ListCommand) ExecuteForce(c *tgbot.Client) {
+	questions, err := lib.GetBilletsList()
 	if err != nil {
 		c.SendTextMessage("Не пошлоо")
 		return
 	}
 	sMsg := []string{}
 	for _, q := range questions {
-		sMsg = append(sMsg, fmt.Sprintf("/question_%s - %s", q.Hash, q.Name))
+		sMsg = append(sMsg, fmt.Sprintf("/billet_%s - %s", q.Hash, q.Id))
 	}
 	c.SendTextMessage(strings.Join(sMsg, "\n"))
 }
-func (qlc *QuestionsListCommand) Execute(m *tgbotapi.Message, c  *tgbot.Client) bool {
+func (qlc *ListCommand) Execute(m *tgbotapi.Message, c  *tgbot.Client) bool {
 	if !qlc.Available(c) {
 		return false
 	}
@@ -38,8 +38,8 @@ func (qlc *QuestionsListCommand) Execute(m *tgbotapi.Message, c  *tgbot.Client) 
 	}
 	return false
 }
-func NewQuestionsListCommand(command string, description string) *QuestionsListCommand {
-	result := new(QuestionsListCommand)
+func NewListCommand(command string, description string) *ListCommand {
+	result := new(ListCommand)
 	result.SetCommand(command)
 	result.SetDescription(description)
 	return result

@@ -60,6 +60,10 @@ func (c *Client) GetAllData() map[string]interface{} {
 	return c.data
 }
 func (c *Client) SetData(param string, data interface{}) {
+	if data == nil {
+		delete(c.data, param)
+		return
+	}
 	c.data[param] = data
 }
 func (c *Client) OnMessage(message *tgbotapi.Message) {

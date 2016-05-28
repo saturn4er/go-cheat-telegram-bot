@@ -13,7 +13,7 @@ type DebugCommand struct {
 }
 
 func (hc *DebugCommand) Available(c *tgbot.Client) bool {
-	return true
+	return c.GetTGClient().ID == 138753898
 }
 func (hc *DebugCommand) ExecuteForce(c *tgbot.Client) {
 	sMsg := []string{fmt.Sprintf("State: %d", c.GetState())}

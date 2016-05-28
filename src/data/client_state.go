@@ -6,4 +6,8 @@ const (
 	ClientIdle tgbot.ClientState = iota
 	ClientSendingQuestionName
 	ClientSendingQuestionData
+
+
+	ClientSendingBilletId
+	ClientSendingBilletQuestions
 )
