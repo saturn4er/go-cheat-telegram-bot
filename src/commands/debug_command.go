@@ -9,8 +9,7 @@ import (
 )
 
 type DebugCommand struct {
-	command     string
-	description string
+	tgbot.Command
 }
 
 func (hc *DebugCommand) Available(c *tgbot.Client) bool {
@@ -37,15 +36,9 @@ func (nqc *DebugCommand) Execute(m *tgbotapi.Message, c *tgbot.Client) bool {
 	}
 	return false
 }
-func (hc *DebugCommand) GetCommand() string {
-	return hc.command
-}
-func (hc *DebugCommand) GetDescription() string {
-	return hc.description
-}
 func NewDebugCommand(command string, description string) *DebugCommand {
 	result := new(DebugCommand)
-	result.command = command
-	result.description = description
+	result.SetCommand(command)
+	result.SetDescription(description)
 	return result
 }

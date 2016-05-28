@@ -7,8 +7,7 @@ import (
 )
 
 type UnknownCommand struct {
-	command     string
-	description string
+	tgbot.Command
 }
 
 func (hc *UnknownCommand) Available(c *tgbot.Client) bool {
@@ -16,21 +15,14 @@ func (hc *UnknownCommand) Available(c *tgbot.Client) bool {
 }
 func (hc *UnknownCommand) ExecuteForce(c *tgbot.Client) {
 	c.SendSticker(data.UnknownDataSticker)
+	c.SendTextMessage("Я тебя не понимаю")
 	c.ExecuteForceCommand(vHelpCommand)
 }
 func (nqc *UnknownCommand) Execute(m *tgbotapi.Message, c *tgbot.Client) bool {
 	nqc.ExecuteForce(c)
 	return false
 }
-func (hc *UnknownCommand) GetCommand() string {
-	return hc.command
-}
-func (hc *UnknownCommand) GetDescription() string {
-	return hc.description
-}
 func NewUnknownCommand() *UnknownCommand {
 	result := new(UnknownCommand)
-	result.command = ""
-	result.description = ""
 	return result
 }

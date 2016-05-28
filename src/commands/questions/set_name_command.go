@@ -10,8 +10,7 @@ import (
 )
 
 type SetQuestionNameCommand struct {
-	command     string
-	description string
+	tgbot.Command
 }
 
 func (this *SetQuestionNameCommand) Available(c  *tgbot.Client) bool {
@@ -37,15 +36,8 @@ func (this *SetQuestionNameCommand) Execute(m *tgbotapi.Message, c  *tgbot.Clien
 	c.SendTextMessage("Теперь нужно указать данные, которые я тебе отправлю, когда ты будешь списывать;) Сейчас доступны только: текст, картинка, документ")
 	return true
 }
-func (this *SetQuestionNameCommand) GetCommand() string {
-	return this.command
-}
-func (this *SetQuestionNameCommand) GetDescription() string {
-	return this.description
-}
 func NewSetQuestionNameCommand(description string) *SetQuestionNameCommand {
 	result := new(SetQuestionNameCommand)
-	result.command = ""
-	result.description = description
+	result.SetDescription(description)
 	return result
 }

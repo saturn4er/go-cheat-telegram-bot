@@ -64,6 +64,7 @@ func (c *Client) SetData(param string, data interface{}) {
 }
 func (c *Client) OnMessage(message *tgbotapi.Message) {
 	for _, command := range GetCommands() {
+
 		if c.ExecuteCommand(message, command) {
 			break
 		}
@@ -71,9 +72,9 @@ func (c *Client) OnMessage(message *tgbotapi.Message) {
 	return
 
 }
-func (c *Client) ExecuteCommand(message *tgbotapi.Message, command Command) bool {
+func (c *Client) ExecuteCommand(message *tgbotapi.Message, command commander) bool {
 	return command.Available(c) && command.Execute(message, c)
 }
-func (c *Client) ExecuteForceCommand(command Command) {
+func (c *Client) ExecuteForceCommand(command commander) {
 	command.ExecuteForce(c)
 }

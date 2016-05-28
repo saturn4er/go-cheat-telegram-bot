@@ -2,7 +2,6 @@ package tgbot
 
 import (
 	"gopkg.in/telegram-bot-api.v4"
-	"fmt"
 	"log"
 )
 
@@ -21,6 +20,7 @@ func (a *Application) Run() {
 
 	bot.Debug = a.Debug
 
+	log.Printf("Authorized on account %s", bot.Self.UserName)
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
@@ -36,11 +36,5 @@ func (a *Application) Run() {
 		}
 		locClient := a.Clients[update.Message.From.ID]
 		locClient.OnMessage(update.Message)
-		if update.Message.Sticker != nil {
-			fmt.Println("Received sticker with id: ", update.Message.Sticker.FileID)
-		}
-		if update.Message.Photo != nil {
-			fmt.Println("Received photo with id: ", (*update.Message.Photo)[0].FileID)
-		}
 	}
 }

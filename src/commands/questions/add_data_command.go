@@ -8,8 +8,7 @@ import (
 )
 
 type AddDataCommand struct {
-	command     string
-	description string
+	tgbot.Command
 }
 
 func (this *AddDataCommand) Available(c  *tgbot.Client) bool {
@@ -39,15 +38,8 @@ func (this *AddDataCommand) Execute(m *tgbotapi.Message, c  *tgbot.Client) bool 
 	c.Send(msg)
 	return true
 }
-func (this *AddDataCommand) GetCommand() string {
-	return this.command
-}
-func (this *AddDataCommand) GetDescription() string {
-	return this.description
-}
 func NewAddDataCommand(description string) *AddDataCommand {
 	result := new(AddDataCommand)
-	result.command = ""
-	result.description = description
+	result.SetDescription(description)
 	return result
 }

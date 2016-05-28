@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"gopkg.in/telegram-bot-api.v4"
+	"os"
 )
 
 const (
@@ -54,7 +55,16 @@ func (bi *QuestionInfo) ToMessages(chatId int64) []tgbotapi.Chattable {
 	}
 	return result
 }
-
+func (bi *QuestionInfo) Save() error {
+	data, err := json.Marshal(bi)
+	if err != nil {
+		return err
+	}
+	questionDir := filepath.Join("./questions/", bi.Hash)
+	os.MkdirAll(questionDir, 0700)
+	err = ioutil.WriteFile(filepath.Join(questionDir, "/info.json"), data, 0700)
+	return err
+}
 func GetQuestionsList() ([]QuestionInfo, error) {
 	result := []QuestionInfo{}
 	infos, err := filepath.Glob("./questions/*/info.json")

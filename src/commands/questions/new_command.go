@@ -8,8 +8,7 @@ import (
 )
 
 type NewQuestionCommand struct {
-	command     string
-	description string
+	tgbot.Command
 }
 
 func (hc *NewQuestionCommand) Available(c  *tgbot.Client) bool {
@@ -32,15 +31,9 @@ func (nqc *NewQuestionCommand) Execute(m *tgbotapi.Message, c  *tgbot.Client) bo
 	}
 	return false
 }
-func (hc *NewQuestionCommand) GetCommand() string {
-	return hc.command
-}
-func (hc *NewQuestionCommand) GetDescription() string {
-	return hc.description
-}
 func NewNewQuestionCommand(command string, description string) *NewQuestionCommand {
 	result := new(NewQuestionCommand)
-	result.command = command
-	result.description = description
+	result.SetCommand(command)
+	result.SetDescription(description)
 	return result
 }

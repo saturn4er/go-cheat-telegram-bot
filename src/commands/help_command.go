@@ -8,8 +8,7 @@ import (
 )
 
 type HelpCommand struct {
-	command     string
-	description string
+	tgbot.Command
 }
 
 func (hc *HelpCommand) Available(c *tgbot.Client) bool {
@@ -37,15 +36,9 @@ func (hc *HelpCommand) Execute(m *tgbotapi.Message, c *tgbot.Client) bool {
 	}
 	return false
 }
-func (hc *HelpCommand) GetCommand() string {
-	return hc.command
-}
-func (hc *HelpCommand) GetDescription() string {
-	return hc.description
-}
 func NewHelpCommand(command string, description string) *HelpCommand {
 	result := new(HelpCommand)
-	result.command = command
-	result.description = description
+	result.SetCommand(command)
+	result.SetDescription(description)
 	return result
 }

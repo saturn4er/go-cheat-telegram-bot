@@ -7,8 +7,7 @@ import (
 )
 
 type CancelNewQuestionCommand struct {
-	command     string
-	description string
+	tgbot.Command
 }
 
 func (hc *CancelNewQuestionCommand) Available(c *tgbot.Client) bool {
@@ -29,15 +28,9 @@ func (nqc *CancelNewQuestionCommand) Execute(m *tgbotapi.Message, c *tgbot.Clien
 	}
 	return false
 }
-func (hc *CancelNewQuestionCommand) GetCommand() string {
-	return hc.command
-}
-func (hc *CancelNewQuestionCommand) GetDescription() string {
-	return hc.description
-}
 func NewCancelNewQuestionCommand(command string, description string) *CancelNewQuestionCommand {
 	result := new(CancelNewQuestionCommand)
-	result.command = command
-	result.description = description
+	result.SetCommand(command)
+	result.SetDescription(description)
 	return result
 }

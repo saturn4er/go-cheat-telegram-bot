@@ -8,12 +8,9 @@ import (
 	"github.com/saturn4er/go-cheat-telegram-bot/src/data"
 	"github.com/saturn4er/go-cheat-telegram-bot/src/lib"
 )
-type Client interface {
 
-}
 type QuestionsListCommand struct {
-	command     string
-	description string
+	tgbot.Command
 }
 
 func (qlc *QuestionsListCommand) Available(c  *tgbot.Client) bool {
@@ -32,7 +29,7 @@ func (hc *QuestionsListCommand) ExecuteForce(c *tgbot.Client) {
 	c.SendTextMessage(strings.Join(sMsg, "\n"))
 }
 func (qlc *QuestionsListCommand) Execute(m *tgbotapi.Message, c  *tgbot.Client) bool {
-	if !qlc.Available(c){
+	if !qlc.Available(c) {
 		return false
 	}
 	if m.Text == qlc.GetCommand() {
@@ -41,15 +38,9 @@ func (qlc *QuestionsListCommand) Execute(m *tgbotapi.Message, c  *tgbot.Client) 
 	}
 	return false
 }
-func (qlc *QuestionsListCommand) GetCommand() string {
-	return qlc.command
-}
-func (qlc *QuestionsListCommand) GetDescription() string {
-	return qlc.description
-}
 func NewQuestionsListCommand(command string, description string) *QuestionsListCommand {
 	result := new(QuestionsListCommand)
-	result.command = command
-	result.description = description
+	result.SetCommand(command)
+	result.SetDescription(description)
 	return result
 }
